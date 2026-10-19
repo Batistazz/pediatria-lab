@@ -44,7 +44,17 @@ window.TEMAS = [
       cartao: { href: "resumos/asma/cartao.pdf", paginas: 1 },
     },
   },
-  { id: "choque", titulo: "Choque", sub: "Sepse e choque séptico na criança" },
+  {
+    id: "choque", titulo: "Choque e Sepse na Criança", sub: "Da suspeita à primeira hora; inclui anafilaxia",
+    fontes: "Surviving Sepsis Campaign pediátrica 2026 · SBP Phoenix 2024 · SBP anafilaxia 2021 · AIDPI (MS) · NICE NG143 e NG29",
+    atualizado: "2026-10-19",
+    arquivos: {
+      capa: "resumos/choque/capa.jpg",
+      caderno: { href: "resumos/choque/caderno.pdf", paginas: 13 },
+      flash: { href: "resumos/choque/flash.pdf", paginas: 2 },
+      cartao: { href: "resumos/choque/cartao.pdf", paginas: 1 },
+    },
+  },
   { id: "pcr", titulo: "Parada Cardiorrespiratória", sub: "Suporte básico e avançado de vida pediátrico" },
   { id: "atb", titulo: "Antibioticoterapia", sub: "Escolhas empíricas e doses nas infecções comuns" },
   { id: "ictericia", titulo: "Icterícia Neonatal", sub: "Hiperbilirrubinemia indireta e colestase" },
