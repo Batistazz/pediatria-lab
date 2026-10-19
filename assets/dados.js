@@ -59,5 +59,15 @@ window.TEMAS = [
   { id: "atb", titulo: "Antibioticoterapia", sub: "Escolhas empíricas e doses nas infecções comuns" },
   { id: "ictericia", titulo: "Icterícia Neonatal", sub: "Hiperbilirrubinemia indireta e colestase" },
   { id: "reanimacao-neo", titulo: "Reanimação Neonatal", sub: "Sala de parto: ≥34 e <34 semanas" },
-  { id: "diarreia", titulo: "Diarreia Aguda", sub: "Avaliação da hidratação e planos A, B e C" },
+  {
+    id: "diarreia", titulo: "Diarreia Aguda e Desidratação", sub: "Planos A, B e C; disenteria, zinco e ondansetrona",
+    fontes: "Cartaz do Ministério da Saúde (manejo do paciente com diarreia) · SBP 2023 · OMS 2024 · NICE",
+    atualizado: "2026-10-19",
+    arquivos: {
+      capa: "resumos/diarreia/capa.jpg",
+      caderno: { href: "resumos/diarreia/caderno.pdf", paginas: 14 },
+      flash: { href: "resumos/diarreia/flash.pdf", paginas: 2 },
+      cartao: { href: "resumos/diarreia/cartao.pdf", paginas: 1 },
+    },
+  },
 ];
