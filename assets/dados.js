@@ -1,6 +1,16 @@
 /* Temas do internato de pediatria. Para anexar um resumo pronto: preencher "arquivos" e "atualizado". */
 window.TEMAS = [
-  { id: "ivas", titulo: "IVAS", sub: "Resfriado, otite média aguda, faringoamigdalite, sinusite e crupe" },
+  {
+    id: "ivas", titulo: "IVAS na Criança", sub: "Do resfriado ao estridor: otite, faringoamigdalite, sinusite, crupe e epiglotite",
+    fontes: "AIDPI (MS) · SBP crupe · ABORL-CCF rinossinusites 2024 · AAP · Sociedade Canadense de Pediatria (crupe, 2026) · IDSA 2025",
+    atualizado: "2026-10-19",
+    arquivos: {
+      capa: "resumos/ivas/capa.jpg",
+      caderno: { href: "resumos/ivas/caderno.pdf", paginas: 17 },
+      flash: { href: "resumos/ivas/flash.pdf", paginas: 2 },
+      cartao: { href: "resumos/ivas/cartao.pdf", paginas: 1 },
+    },
+  },
   {
     id: "bronquiolite", titulo: "Bronquiolite Viral Aguda", sub: "Do primeiro chiado à alta",
     fontes: "Ministério da Saúde 2026 · NICE NG9 · Diretriz australasiana 2025 · CVE-SP (nirsevimabe) 2026",
@@ -12,8 +22,28 @@ window.TEMAS = [
       cartao: { href: "resumos/bronquiolite/cartao.pdf", paginas: 1 },
     },
   },
-  { id: "pneumonia", titulo: "Pneumonia", sub: "Pneumonia adquirida na comunidade, não complicada e complicada" },
-  { id: "asma", titulo: "Asma", sub: "Crise no pronto-socorro e tratamento de manutenção" },
+  {
+    id: "pneumonia", titulo: "Pneumonia Adquirida na Comunidade", sub: "Da taquipneia ao empiema",
+    fontes: "SBP (PAC não complicada 2022; complicada 2024) · AIDPI (MS) · OMS 2024 · IDSA/PIDS 2026 · NICE NG250",
+    atualizado: "2026-10-19",
+    arquivos: {
+      capa: "resumos/pneumonia/capa.jpg",
+      caderno: { href: "resumos/pneumonia/caderno.pdf", paginas: 15 },
+      flash: { href: "resumos/pneumonia/flash.pdf", paginas: 2 },
+      cartao: { href: "resumos/pneumonia/cartao.pdf", paginas: 1 },
+    },
+  },
+  {
+    id: "asma", titulo: "Asma na Criança", sub: "Do controle à crise",
+    fontes: "PCDT de Asma (MS, 2026) · ASBAI/SBP exacerbação 2021 · GINA 2026 · SBP nota técnica 2023",
+    atualizado: "2026-10-19",
+    arquivos: {
+      capa: "resumos/asma/capa.jpg",
+      caderno: { href: "resumos/asma/caderno.pdf", paginas: 16 },
+      flash: { href: "resumos/asma/flash.pdf", paginas: 2 },
+      cartao: { href: "resumos/asma/cartao.pdf", paginas: 1 },
+    },
+  },
   { id: "choque", titulo: "Choque", sub: "Sepse e choque séptico na criança" },
   { id: "pcr", titulo: "Parada Cardiorrespiratória", sub: "Suporte básico e avançado de vida pediátrico" },
   { id: "atb", titulo: "Antibioticoterapia", sub: "Escolhas empíricas e doses nas infecções comuns" },
