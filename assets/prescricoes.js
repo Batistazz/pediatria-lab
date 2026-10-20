@@ -17,6 +17,7 @@ function restricao(item, ctx) {
   if (item.menorQue != null && ctx.meses >= item.menorQue) return `Acima de ${item.menorQue / 12} anos: ver o caderno.`;
   if (item.pesoMin != null && ctx.peso <= item.pesoMin) return `Só acima de ${item.pesoMin} kg.`;
   if (item.pesoMax != null && ctx.peso > item.pesoMax) return `Só até ${item.pesoMax} kg.`;
+  if (item.pesoMinIncl != null && ctx.peso < item.pesoMinIncl) return `Só a partir de ${item.pesoMinIncl} kg.`;
   if (item.limitePeso != null && ctx.peso > item.limitePeso) return `Acima de ${item.limitePeso} kg: usar a dose do protocolo do serviço (a fonte não traz teto por dose).`;
   return null;
 }
@@ -56,6 +57,8 @@ function calcular(item, ctx, chave) {
     const maxDia = d.maxDiaFn ? d.maxDiaFn(ctx) : d.maxDia;
     if (maxDia && dia > maxDia) { dia = maxDia; teto = ` (teto de ${num(maxDia, 0)} mg/dia)`; }
     mgDose = dia / d.vezes;
+  } else if (d.mgDoseFn) {
+    mgDose = d.mgDoseFn(ctx);
   } else {
     mgDose = ctx.peso * d.mgkgdose;
   }
@@ -132,7 +135,7 @@ function cartaoItem(p, b, bloco, it, i, ctx) {
 }
 
 function textoCopia(p, ctx) {
-  const alta = estado.orient ? "\n\n" + window.MODELOS_TEXTO.find((m) => m.id === "alta").texto : "";
+  const alta = estado.orient ? "\n\n" + (p.orientacoes || window.MODELOS_TEXTO.find((m) => m.id === "alta").texto) : "";
   return textoPrescricao(p, ctx) + alta;
 }
 
