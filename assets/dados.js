@@ -68,7 +68,17 @@ window.TEMAS = [
       cartao: { href: "resumos/ictericia/cartao.pdf", paginas: 1 },
     },
   },
-  { id: "reanimacao-neo", titulo: "Reanimação Neonatal", sub: "Sala de parto: ≥34 e <34 semanas" },
+  {
+    id: "reanimacao-neo", titulo: "Reanimação Neonatal", sub: "Sala de parto: ≥ 34 e < 34 semanas (SBP 2026)",
+    fontes: "SBP 2026 (≥ 34 e < 34 semanas) · SBP 2022",
+    atualizado: "2026-10-19",
+    arquivos: {
+      capa: "resumos/reanimacao-neo/capa.jpg",
+      caderno: { href: "resumos/reanimacao-neo/caderno.pdf", paginas: 14 },
+      flash: { href: "resumos/reanimacao-neo/flash.pdf", paginas: 2 },
+      cartao: { href: "resumos/reanimacao-neo/cartao.pdf", paginas: 1 },
+    },
+  },
   {
     id: "diarreia", titulo: "Diarreia Aguda e Desidratação", sub: "Planos A, B e C; disenteria, zinco e ondansetrona",
     fontes: "Cartaz do Ministério da Saúde (manejo do paciente com diarreia) · SBP 2023 · OMS 2024 · NICE",
