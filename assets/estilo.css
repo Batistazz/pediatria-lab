@@ -1,5 +1,6 @@
 /* Resumos de Pediatria · Batistaz — mesmo "livro antigo" dos PDFs e do TOCE Lab */
 :root {
+  color-scheme: only light;  /* o site é só claro: impede o modo escuro forçado do Chrome de clarear o texto sobre o papel */
   --papel: #ece3cf; --tinta: #2f2419; --tinta-2: #55432f; --fraco: #6a5741;
   --filete: #7a6549; --linha: #cfbf9e; --vinho: #7a2e25; --tom: rgba(120,88,45,.08);
   --cartao: #f4eddd; --topo: rgba(236,227,207,.95);
@@ -59,4 +60,67 @@ main { max-width: 1040px; margin: 0 auto; padding: 28px 16px 48px; }
   .resumo-card h2 { font-size: 25px; }
   .acoes .botao { width: 100%; justify-content: center; }
   .sessao { grid-template-columns: 1fr; gap: 4px; }
+}
+
+/* ===== Navegação e prescrições de plantão ===== */
+.nav-topo { margin-left: auto; display: flex; gap: 18px; font-size: 16px; }
+.nav-topo a { color: var(--tinta-2); text-decoration: none; font-variant: small-caps; letter-spacing: .08em; }
+.nav-topo a[aria-current="page"], .nav-topo a:hover { color: var(--vinho); border-bottom: 1px solid var(--vinho); }
+.chamada-presc { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: center; margin: 0 0 22px;
+  padding: 14px 18px; border: 1px solid var(--linha); background: var(--tom); }
+.chamada-presc p { margin: 0; font-style: italic; color: var(--tinta-2); }
+
+.aviso-presc { border-left: 3px solid var(--vinho); background: var(--tom); padding: 10px 14px; font-size: 16px; margin: 0 0 18px; }
+.dados-crianca { position: sticky; top: 61px; z-index: 5; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: flex-end;
+  padding: 12px 0; background: var(--topo); backdrop-filter: blur(8px); border-bottom: 1px solid var(--linha); margin-bottom: 8px; }
+.dados-crianca label { display: flex; flex-direction: column; font-size: 14px; color: var(--fraco); font-variant: small-caps; letter-spacing: .06em; }
+.dados-crianca input { font: inherit; font-size: 18px; width: 110px; padding: 6px 8px; border: 1px solid var(--filete); background: var(--cartao);
+  color: var(--tinta); border-radius: 2px; font-variant: normal; letter-spacing: 0; }
+.dados-crianca .busca { flex: 1; min-width: 180px; }
+.dados-crianca .busca input { width: 100%; }
+
+.grupo { font-size: 22px; margin: 22px 0 6px; color: var(--vinho); font-variant: small-caps; letter-spacing: .08em; }
+.presc { border-bottom: 1px solid var(--linha); }
+.presc-titulo { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 2px;
+  background: none; border: 0; font: inherit; font-size: 20px; color: var(--tinta); text-align: left; cursor: pointer; }
+.presc-titulo:hover { color: var(--vinho); }
+.presc-titulo .seta { font-size: 24px; color: var(--fraco); }
+.presc-corpo { padding: 0 2px 18px; }
+.notas { margin: 0 0 12px; padding-left: 20px; font-size: 16px; color: var(--tinta-2); }
+.notas li { margin: 3px 0; }
+.f { font-variant: small-caps; color: var(--fraco); font-size: .9em; letter-spacing: .04em; }
+
+.bloco { border: 1px solid var(--linha); background: var(--cartao); margin: 0 0 12px; padding: 6px 12px 10px; }
+.bloco legend { padding: 0 6px; font-variant: small-caps; letter-spacing: .06em; color: var(--tinta-2); font-size: 15px; }
+.presc-item { display: grid; grid-template-columns: 22px 1fr; gap: 8px; padding: 8px 0; border-top: 1px dotted var(--linha); cursor: pointer; }
+.presc-item:first-of-type { border-top: 0; }
+.presc-item input { margin-top: 6px; accent-color: var(--vinho); }
+.presc-item .corpo { display: flex; flex-direction: column; gap: 2px; }
+.presc-item small { font-size: 14px; color: var(--fraco); }
+.presc-item .calc { font-family: ui-monospace, Consolas, monospace; font-size: 14.5px; color: var(--tinta); background: rgba(255,255,255,.45); padding: 3px 6px; }
+.presc-item .calc.vazio { font-family: inherit; font-style: italic; color: var(--fraco); background: none; padding: 0; }
+.presc-item .aviso { color: var(--vinho); }
+.presc-item .nota { line-height: 1.35; }
+.presc-item.bloqueado { opacity: .6; cursor: default; }
+.presc-item .ap { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0; }
+.presc-item select, .presc-item .ap input { font: inherit; font-size: 15px; padding: 2px 6px; border: 1px solid var(--filete); background: var(--papel); color: var(--tinta); }
+.presc-item .ap input { width: 100px; }
+
+.saida { margin-top: 6px; }
+.saida pre, .modelo pre { white-space: pre-wrap; font-family: ui-monospace, Consolas, monospace; font-size: 14px; background: #fbf7ee;
+  border: 1px solid var(--linha); padding: 10px 12px; margin: 0 0 10px; overflow-x: auto; }
+.secao-presc { margin-top: 36px; }
+.secao-presc h2 { font-size: 26px; margin: 4px 0 10px; }
+.modelo { border-bottom: 1px solid var(--linha); padding: 8px 0; }
+.modelo summary { cursor: pointer; font-size: 19px; }
+.modelo pre { margin-top: 8px; }
+.fontes-presc { font-size: 15px; color: var(--tinta-2); padding-left: 18px; }
+.obs-presc { font-size: 15px; font-style: italic; color: var(--fraco); }
+.vazio { font-style: italic; color: var(--fraco); }
+
+@media (max-width: 720px) {
+  .nav-topo { gap: 12px; font-size: 15px; }
+  .dados-crianca { top: 61px; }
+  .dados-crianca input { width: 90px; }
+  .presc-titulo { font-size: 18px; }
 }

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="only light">
+<meta name="darkreader-lock">
+<title>Prescrições de Plantão · Batistaz</title>
+<meta name="description" content="Modelos de prescrição de pronto atendimento pediátrico com doses calculadas pelo peso e conferidas nas diretrizes.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-20 -47 40 55'%3E%3Cpath d='M0 0V-39M0 -39L-4 -44M0 -39L4 -44M0 -21L-17 -37L-11 -43M0 -21L17 -37L11 -43M0 -20L-17 -7L0 5L17 -7Z' fill='none' stroke='%233A2E22' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/estilo.css?v=20261020p">
+</head>
+<body>
+<header class="topo">
+  <a class="marca" href="./">
+    <svg viewBox="-20 -47 40 55" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M0 0V-39M0 -39L-4 -44M0 -39L4 -44M0 -21L-17 -37L-11 -43M0 -21L17 -37L11 -43M0 -20L-17 -7L0 5L17 -7Z"/></svg>
+    <span><b>Batistaz</b><small>Resumos de Pediatria</small></span>
+  </a>
+  <nav class="nav-topo"><a href="./">Resumos</a><a href="prescricoes.html" aria-current="page">Prescrições</a></nav>
+</header>
+
+<main>
+  <section class="abertura">
+    <span class="rotulo">Pronto atendimento · pediatria</span>
+    <h1>Prescrições de Plantão</h1>
+    <p>Digite o peso e a idade: as doses saem calculadas, com a fonte de cada uma. Escolha as opções e copie o texto para o prontuário.</p>
+    <div class="filete"></div>
+  </section>
+
+  <div class="aviso-presc">
+    <b>Antes de usar.</b> Material de estudo do internato. As doses foram conferidas nas diretrizes citadas, mas confira sempre a
+    concentração do frasco, alergias, função renal e o protocolo do serviço. Não substitui a avaliação e a decisão do médico responsável.
+  </div>
+
+  <section class="dados-crianca">
+    <label>Peso (kg)<input id="peso" type="number" inputmode="decimal" min="1" max="120" step="0.1" placeholder="ex.: 12,5"></label>
+    <label>Idade: anos<input id="anos" type="number" inputmode="numeric" min="0" max="18" step="1" placeholder="0"></label>
+    <label>e meses<input id="meses" type="number" inputmode="numeric" min="0" max="11" step="1" placeholder="0"></label>
+    <label class="busca">Buscar<input id="busca" type="search" placeholder="otite, diarreia, asma…"></label>
+  </section>
+
+  <div id="lista"><noscript><p class="carregando">Ative o JavaScript para usar a calculadora.</p></noscript></div>
+
+  <section class="secao-presc">
+    <span class="rotulo">Modelos de texto</span>
+    <h2>Evolução, orientações e documentos</h2>
+    <div id="modelos"></div>
+  </section>
+
+  <section class="secao-presc">
+    <span class="rotulo">Fontes</span>
+    <ul class="fontes-presc" id="fontes"></ul>
+    <p class="obs-presc">Ficaram de fora, por enquanto, as situações sem fonte arquivada para conferir as doses (dengue, constipação, dermatites,
+      verminoses, escabiose, conjuntivite, escorpionismo e outras). Também não entram itens que as diretrizes desaconselham, como xaropes para tosse,
+      anti-histamínico e descongestionante no resfriado, broncodilatador na bronquiolite e antitérmicos alternados.</p>
+  </section>
+</main>
+
+<footer class="rodape">
+  <p>Resumos de Pediatria · Internato · 10º período</p>
+</footer>
+<script src="assets/prescricoes-dados.js?v=20261020p"></script>
+<script src="assets/prescricoes.js?v=20261020p"></script>
+</body>
+</html>

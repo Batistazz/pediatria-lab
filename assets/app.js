@@ -44,6 +44,8 @@ function render() {
       <p>Para cada tema: Caderno de Estudos completo, Revisão Flash de uma página e Cartão de Plantão para consulta rápida.</p>
       <div class="filete"></div>
     </section>
+    <div class="chamada-presc"><p>Modelos de prescrição de pronto atendimento com doses calculadas pelo peso.</p>
+      <a class="botao" href="prescricoes.html">Prescrições de plantão</a></div>
     <p class="contagem-temas">${prontos.length} de ${temas.length} temas disponíveis</p>
     ${prontos.map(cardPronto).join("")}
     ${pendentes.length ? `
