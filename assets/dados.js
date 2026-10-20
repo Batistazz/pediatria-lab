@@ -55,7 +55,17 @@ window.TEMAS = [
       cartao: { href: "resumos/choque/cartao.pdf", paginas: 1 },
     },
   },
-  { id: "pcr", titulo: "Parada Cardiorrespiratória", sub: "Suporte básico e avançado de vida pediátrico" },
+  {
+    id: "pcr", titulo: "Parada Cardiorrespiratória", sub: "Suporte básico e avançado de vida pediátrico",
+    fontes: "SBC 2019 · ERC 2025 · RCUK 2025 (AHA 2025 pendente)",
+    atualizado: "2026-10-19",
+    arquivos: {
+      capa: "resumos/pcr/capa.jpg",
+      caderno: { href: "resumos/pcr/caderno.pdf", paginas: 15 },
+      flash: { href: "resumos/pcr/flash.pdf", paginas: 2 },
+      cartao: { href: "resumos/pcr/cartao.pdf", paginas: 1 },
+    },
+  },
   { id: "atb", titulo: "Antibioticoterapia", sub: "Escolhas empíricas e doses nas infecções comuns" },
   {
     id: "ictericia", titulo: "Icterícia Neonatal", sub: "Da bilirrubina indireta à colestase: fototerapia, exsanguineotransfusão e atresia biliar",
