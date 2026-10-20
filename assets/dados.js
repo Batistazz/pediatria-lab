@@ -66,7 +66,17 @@ window.TEMAS = [
       cartao: { href: "resumos/pcr/cartao.pdf", paginas: 1 },
     },
   },
-  { id: "atb", titulo: "Antibioticoterapia", sub: "Escolhas empíricas e doses nas infecções comuns" },
+  {
+    id: "atb", titulo: "Antibioticoterapia", sub: "Escolhas empíricas e doses nas infecções comuns",
+    fontes: "MS Guia de Vigilância 2024 · NT 154/2024 · SBP ITU 2021 · OMS AWaRe 2022 e 2024",
+    atualizado: "2026-10-19",
+    arquivos: {
+      capa: "resumos/atb/capa.jpg",
+      caderno: { href: "resumos/atb/caderno.pdf", paginas: 15 },
+      flash: { href: "resumos/atb/flash.pdf", paginas: 2 },
+      cartao: { href: "resumos/atb/cartao.pdf", paginas: 1 },
+    },
+  },
   {
     id: "ictericia", titulo: "Icterícia Neonatal", sub: "Da bilirrubina indireta à colestase: fototerapia, exsanguineotransfusão e atresia biliar",
     fontes: "SBP, manual de hiperbilirrubinemia indireta (2021) · NASPGHAN/ESPGHAN colestase (2017)",
