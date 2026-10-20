@@ -36,7 +36,7 @@ window.TEMAS = [
   {
     id: "asma", titulo: "Asma na Criança", sub: "Do controle à crise",
     fontes: "PCDT de Asma (MS, 2026) · ASBAI/SBP exacerbação 2021 · GINA 2026 · SBP nota técnica 2023",
-    atualizado: "2026-10-19",
+    atualizado: "2026-10-20",
     arquivos: {
       capa: "resumos/asma/capa.jpg",
       caderno: { href: "resumos/asma/caderno.pdf", paginas: 16 },
