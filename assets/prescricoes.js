@@ -5,7 +5,7 @@ const escP = (t) => String(t ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", 
 const num = (v, casas = 1) => Number(v.toFixed(casas)).toLocaleString("pt-BR", { maximumFractionDigits: casas });
 /* Peso e idade NÃO são guardados: um peso esquecido do paciente anterior viraria dose errada.
    Guardam-se só as favoritas e a opção de incluir as orientações de alta. */
-const estado = { peso: null, meses: null, escolhas: {}, concentracao: {}, aberto: null, busca: "", fav: [], orient: true };
+const estado = { peso: null, meses: null, escolhas: {}, concentracao: {}, aberto: null, modeloAberto: null, busca: "", fav: [], orient: true };
 try { const g = JSON.parse(localStorage.getItem("presc-prefs") || "{}"); estado.fav = g.fav || []; estado.orient = g.orient !== false; } catch (e) { /* sem storage */ }
 const salvar = () => { try { localStorage.setItem("presc-prefs", JSON.stringify({ fav: estado.fav, orient: estado.orient })); } catch (e) { /* ok */ } };
 
@@ -182,12 +182,25 @@ function render() {
     || `<p class="vazio">Nada encontrado.</p>`;
 }
 
+/* Modelos de texto: cartões com Copiar sempre à vista; "ver texto" abre o conteúdo. A busca também filtra. */
 function renderModelos() {
-  document.getElementById("modelos").innerHTML = window.MODELOS_TEXTO.map((m) => `
-    <details class="modelo"><summary>${escP(m.titulo)}</summary>
-      <pre>${escP(m.texto)}</pre>
-      <button class="botao claro" data-acao="copiar-modelo" data-m="${m.id}">Copiar</button>
-    </details>`).join("");
+  const busca = estado.busca.trim().toLowerCase();
+  const lista = window.MODELOS_TEXTO.filter((m) => !busca || (m.titulo + " " + m.texto).toLowerCase().includes(busca));
+  document.getElementById("modelos").innerHTML = lista.map((m) => {
+    const aberto = estado.modeloAberto === m.id;
+    return `
+    <div class="modelo-card ${aberto ? "aberto" : ""}">
+      <div class="modelo-cab">
+        <h3>${escP(m.titulo)}</h3>
+        <button class="botao copiar" data-acao="copiar-modelo" data-m="${m.id}">Copiar</button>
+      </div>
+      <button class="ajustar" data-acao="ver-modelo" data-m="${m.id}" aria-expanded="${aberto}">${aberto ? "Fechar texto ▴" : "Ver texto ▾"}</button>
+      ${aberto ? `<pre class="pronta">${escP(m.texto)}</pre>` : ""}
+    </div>`;
+  }).join("") || `<p class="vazio">Nenhum modelo com esse termo.</p>`;
+}
+
+function renderFontes() {
   document.getElementById("fontes").innerHTML = Object.entries(window.FONTES_PRESC)
     .map(([k, v]) => `<li><span class="f">[${escP(k)}]</span> ${escP(v)}</li>`).join("");
 }
@@ -212,7 +225,7 @@ document.addEventListener("input", (ev) => {
   const el = ev.target;
   if (el.id === "peso") { estado.peso = parseFloat(el.value.replace(",", ".")) || null; render(); }
   else if (el.id === "anos" || el.id === "meses") { lerIdade(); render(); }
-  else if (el.id === "busca") { estado.busca = el.value; render(); }
+  else if (el.id === "busca") { estado.busca = el.value; render(); renderModelos(); }
   else if (el.dataset.acao === "conc") {
     const c = parseFloat(el.value.replace(",", "."));
     estado.concentracao[el.dataset.chave] = { outra: true, c: c > 0 ? c : null };
@@ -255,10 +268,14 @@ document.addEventListener("click", (ev) => {
     copiar(textoCopia(p, { peso: estado.peso, meses: estado.meses }), el);
   } else if (el.dataset.acao === "copiar-modelo") {
     copiar(window.MODELOS_TEXTO.find((m) => m.id === el.dataset.m).texto, el);
+  } else if (el.dataset.acao === "ver-modelo") {
+    estado.modeloAberto = estado.modeloAberto === el.dataset.m ? null : el.dataset.m;
+    renderModelos();
   }
 });
 
 document.getElementById("orient").checked = estado.orient;
 render();
-document.getElementById("peso").focus();
 renderModelos();
+renderFontes();
+document.getElementById("peso").focus();

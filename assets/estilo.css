@@ -146,3 +146,11 @@ main { max-width: 1040px; margin: 0 auto; padding: 28px 16px 48px; }
   .botao.copiar { padding: 10px 16px; }
   .pronta { font-size: 12.5px; }
 }
+
+/* Modelos de texto no topo: grade de cartões com Copiar sempre à vista */
+.modelos-topo { margin: 4px 0 8px; }
+.grade-modelos { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }
+.modelo-card { border: 1px solid var(--linha); background: var(--cartao); padding: 10px 12px; }
+.modelo-card.aberto { grid-column: 1 / -1; }
+.modelo-cab { display: flex; align-items: center; gap: 10px; }
+.modelo-cab h3 { flex: 1; font-size: 18px; line-height: 1.2; }
