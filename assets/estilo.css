@@ -124,3 +124,25 @@ main { max-width: 1040px; margin: 0 auto; padding: 28px 16px 48px; }
   .dados-crianca input { width: 90px; }
   .presc-titulo { font-size: 18px; }
 }
+
+/* Receita pronta: cabeçalho com favorita e Copiar sempre à vista */
+.presc { padding: 10px 0 12px; }
+.presc-cab { display: flex; align-items: center; gap: 10px; }
+.presc-cab h3 { flex: 1; font-size: 20px; }
+.estrela { background: none; border: 0; font-size: 24px; line-height: 1; color: var(--fraco); cursor: pointer; padding: 2px 4px; }
+.estrela.on { color: var(--vinho); }
+.botao.copiar { padding: 8px 22px; font-size: 17px; cursor: pointer; }
+.botao.copiar:disabled { opacity: .45; cursor: default; background: var(--tinta); border-color: var(--tinta-2); }
+.pronta { white-space: pre-wrap; font-family: ui-monospace, Consolas, monospace; font-size: 13.5px; line-height: 1.45; background: #fbf7ee;
+  border: 1px solid var(--linha); padding: 8px 12px; margin: 8px 0 4px; }
+.falta { font-style: italic; color: var(--fraco); font-size: 15px; margin: 6px 0; }
+.ajustar { background: none; border: 0; padding: 2px 0; font: inherit; font-size: 15px; color: var(--vinho); cursor: pointer; }
+.presc-corpo { padding-top: 8px; }
+.dados-crianca .check-orient { flex-direction: row; align-items: center; gap: 8px; font-variant: normal; letter-spacing: 0;
+  font-size: 15px; color: var(--tinta-2); width: 100%; }
+.dados-crianca .check-orient input { width: auto; accent-color: var(--vinho); }
+@media (max-width: 720px) {
+  .presc-cab h3 { font-size: 18px; }
+  .botao.copiar { padding: 10px 16px; }
+  .pronta { font-size: 12.5px; }
+}

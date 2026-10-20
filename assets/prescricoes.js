@@ -3,9 +3,11 @@
 
 const escP = (t) => String(t ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const num = (v, casas = 1) => Number(v.toFixed(casas)).toLocaleString("pt-BR", { maximumFractionDigits: casas });
-const estado = { peso: null, meses: null, escolhas: {}, concentracao: {}, aberto: null, busca: "" };
-try { Object.assign(estado, JSON.parse(localStorage.getItem("presc-estado") || "{}"), { aberto: null }); } catch (e) { /* sem storage */ }
-const salvar = () => { try { localStorage.setItem("presc-estado", JSON.stringify({ peso: estado.peso, meses: estado.meses })); } catch (e) { /* ok */ } };
+/* Peso e idade NÃO são guardados: um peso esquecido do paciente anterior viraria dose errada.
+   Guardam-se só as favoritas e a opção de incluir as orientações de alta. */
+const estado = { peso: null, meses: null, escolhas: {}, concentracao: {}, aberto: null, busca: "", fav: [], orient: true };
+try { const g = JSON.parse(localStorage.getItem("presc-prefs") || "{}"); estado.fav = g.fav || []; estado.orient = g.orient !== false; } catch (e) { /* sem storage */ }
+const salvar = () => { try { localStorage.setItem("presc-prefs", JSON.stringify({ fav: estado.fav, orient: estado.orient })); } catch (e) { /* ok */ } };
 
 /* Arredonda o volume: 0,1 mL abaixo de 2 mL; 0,5 mL acima. */
 const arredMl = (v) => (v < 2 ? Math.round(v * 10) / 10 : Math.round(v * 2) / 2);
@@ -129,13 +131,22 @@ function cartaoItem(p, b, bloco, it, i, ctx) {
     </label>`;
 }
 
+function textoCopia(p, ctx) {
+  const alta = estado.orient ? "\n\n" + window.MODELOS_TEXTO.find((m) => m.id === "alta").texto : "";
+  return textoPrescricao(p, ctx) + alta;
+}
+
 function cartaoSituacao(p, ctx) {
-  const aberto = estado.aberto === p.id;
+  const aberto = estado.aberto === p.id, fav = estado.fav.includes(p.id);
   return `
     <article class="presc ${aberto ? "aberto" : ""}" id="p-${p.id}">
-      <button class="presc-titulo" data-acao="abrir" data-p="${p.id}" aria-expanded="${aberto}">
-        <span>${escP(p.titulo)}</span><span class="seta">${aberto ? "−" : "+"}</span>
-      </button>
+      <div class="presc-cab">
+        <button class="estrela ${fav ? "on" : ""}" data-acao="fav" data-p="${p.id}" title="${fav ? "Tirar das favoritas" : "Marcar como favorita"}" aria-pressed="${fav}">${fav ? "★" : "☆"}</button>
+        <h3>${escP(p.titulo)}</h3>
+        <button class="botao copiar" data-acao="copiar" data-p="${p.id}" ${ctx ? "" : "disabled"}>Copiar</button>
+      </div>
+      ${ctx ? `<pre class="pronta">${escP(textoPrescricao(p, ctx))}</pre>` : `<p class="falta">${faltaDado()}</p>`}
+      <button class="ajustar" data-acao="abrir" data-p="${p.id}" aria-expanded="${aberto}">${aberto ? "Fechar opções ▴" : "Trocar remédio, ver doses e notas ▾"}</button>
       ${aberto ? `<div class="presc-corpo">
         <ul class="notas">${p.notas.map((n) => `<li>${fontesNo(n)}</li>`).join("")}</ul>
         ${p.blocos.map((bloco, b) => `
@@ -144,20 +155,27 @@ function cartaoSituacao(p, ctx) {
             ${bloco.itens.map((it, i) => cartaoItem(p, b, bloco, it, i, ctx)).join("")}
             ${bloco.modo === "um" && bloco.opcional !== false ? `<label class="presc-item nenhum"><input type="radio" name="${p.id}:${b}" data-acao="escolher" data-p="${p.id}" data-b="${b}" data-i="-1" ${selecionados(p, b, bloco).length === 0 ? "checked" : ""}><span class="corpo"><i>Nenhum</i></span></label>` : ""}
           </fieldset>`).join("")}
-        ${ctx ? `<div class="saida"><pre>${escP(textoPrescricao(p, ctx))}</pre>
-          <button class="botao" data-acao="copiar" data-p="${p.id}">Copiar prescrição</button></div>` : ""}
       </div>` : ""}
     </article>`;
+}
+
+function faltaDado() {
+  if (!(estado.peso > 0) && estado.meses == null) return "Digite o peso e a idade lá em cima para a receita aparecer pronta.";
+  return !(estado.peso > 0) ? "Falta o peso." : "Falta a idade.";
 }
 
 function render() {
   const ctx = estado.peso > 0 && estado.meses != null ? { peso: estado.peso, meses: estado.meses } : null;
   const busca = estado.busca.trim().toLowerCase();
   const lista = window.PRESCRICOES.filter((p) => !busca || (p.titulo + " " + p.grupo).toLowerCase().includes(busca));
-  const grupos = [...new Set(lista.map((p) => p.grupo))];
-  document.getElementById("lista").innerHTML = grupos.map((g) => `
+  const favs = lista.filter((p) => estado.fav.includes(p.id));
+  const resto = lista.filter((p) => !estado.fav.includes(p.id));
+  const grupos = [...new Set(resto.map((p) => p.grupo))];
+  document.getElementById("lista").innerHTML =
+    ((favs.length ? `<h2 class="grupo">★ Favoritas</h2>${favs.map((p) => cartaoSituacao(p, ctx)).join("")}` : "") +
+    grupos.map((g) => `
     <h2 class="grupo">${escP(g)}</h2>
-    ${lista.filter((p) => p.grupo === g).map((p) => cartaoSituacao(p, ctx)).join("")}`).join("")
+    ${resto.filter((p) => p.grupo === g).map((p) => cartaoSituacao(p, ctx)).join("")}`).join(""))
     || `<p class="vazio">Nada encontrado.</p>`;
 }
 
@@ -189,8 +207,8 @@ function lerIdade() {
 
 document.addEventListener("input", (ev) => {
   const el = ev.target;
-  if (el.id === "peso") { estado.peso = parseFloat(el.value.replace(",", ".")) || null; salvar(); render(); }
-  else if (el.id === "anos" || el.id === "meses") { lerIdade(); salvar(); render(); }
+  if (el.id === "peso") { estado.peso = parseFloat(el.value.replace(",", ".")) || null; render(); }
+  else if (el.id === "anos" || el.id === "meses") { lerIdade(); render(); }
   else if (el.id === "busca") { estado.busca = el.value; render(); }
   else if (el.dataset.acao === "conc") {
     const c = parseFloat(el.value.replace(",", "."));
@@ -213,6 +231,8 @@ document.addEventListener("change", (ev) => {
       estado.escolhas[k] = [...atual].sort();
     }
     render();
+  } else if (el.id === "orient") {
+    estado.orient = el.checked; salvar();
   } else if (el.dataset.acao === "ap") {
     estado.concentracao[el.dataset.chave] = el.value === "outra" ? { outra: true } : { i: +el.value };
     render();
@@ -223,15 +243,19 @@ document.addEventListener("click", (ev) => {
   const el = ev.target.closest("[data-acao]");
   if (!el) return;
   if (el.dataset.acao === "abrir") { estado.aberto = estado.aberto === el.dataset.p ? null : el.dataset.p; render(); }
-  else if (el.dataset.acao === "copiar") {
+  else if (el.dataset.acao === "fav") {
+    const id = el.dataset.p;
+    estado.fav = estado.fav.includes(id) ? estado.fav.filter((x) => x !== id) : [...estado.fav, id];
+    salvar(); render();
+  } else if (el.dataset.acao === "copiar") {
     const p = window.PRESCRICOES.find((x) => x.id === el.dataset.p);
-    copiar(textoPrescricao(p, { peso: estado.peso, meses: estado.meses }), el);
+    copiar(textoCopia(p, { peso: estado.peso, meses: estado.meses }), el);
   } else if (el.dataset.acao === "copiar-modelo") {
     copiar(window.MODELOS_TEXTO.find((m) => m.id === el.dataset.m).texto, el);
   }
 });
 
-document.getElementById("peso").value = estado.peso ?? "";
-if (estado.meses != null) { document.getElementById("anos").value = Math.floor(estado.meses / 12) || ""; document.getElementById("meses").value = Math.round(estado.meses % 12) || ""; }
+document.getElementById("orient").checked = estado.orient;
 render();
+document.getElementById("peso").focus();
 renderModelos();
