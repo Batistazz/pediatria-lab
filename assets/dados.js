@@ -3,7 +3,7 @@ window.TEMAS = [
   {
     id: "ivas", titulo: "IVAS na Criança", sub: "Do resfriado ao estridor: otite, faringoamigdalite, sinusite, crupe e epiglotite",
     fontes: "AIDPI (MS) · SBP crupe · ABORL-CCF rinossinusites 2024 · AAP · Sociedade Canadense de Pediatria (crupe, 2026) · IDSA 2025",
-    atualizado: "2026-10-19",
+    atualizado: "2026-10-20",
     arquivos: {
       capa: "resumos/ivas/capa.jpg",
       caderno: { href: "resumos/ivas/caderno.pdf", paginas: 17 },
@@ -57,8 +57,8 @@ window.TEMAS = [
   },
   {
     id: "pcr", titulo: "Parada Cardiorrespiratória", sub: "Suporte básico e avançado de vida pediátrico",
-    fontes: "SBC 2019 · ERC 2025 · RCUK 2025 (AHA 2025 pendente)",
-    atualizado: "2026-10-19",
+    fontes: "SBC 2019 · ERC 2025 · RCUK 2025 · AHA 2025 SBV pediátrico",
+    atualizado: "2026-10-20",
     arquivos: {
       capa: "resumos/pcr/capa.jpg",
       caderno: { href: "resumos/pcr/caderno.pdf", paginas: 15 },
@@ -80,7 +80,7 @@ window.TEMAS = [
   {
     id: "ictericia", titulo: "Icterícia Neonatal", sub: "Da bilirrubina indireta à colestase: fototerapia, exsanguineotransfusão e atresia biliar",
     fontes: "SBP, manual de hiperbilirrubinemia indireta (2021) · NASPGHAN/ESPGHAN colestase (2017)",
-    atualizado: "2026-10-19",
+    atualizado: "2026-10-20",
     arquivos: {
       capa: "resumos/ictericia/capa.jpg",
       caderno: { href: "resumos/ictericia/caderno.pdf", paginas: 14 },
@@ -102,7 +102,7 @@ window.TEMAS = [
   {
     id: "diarreia", titulo: "Diarreia Aguda e Desidratação", sub: "Planos A, B e C; disenteria, zinco e ondansetrona",
     fontes: "Cartaz do Ministério da Saúde (manejo do paciente com diarreia) · SBP 2023 · OMS 2024 · NICE",
-    atualizado: "2026-10-19",
+    atualizado: "2026-10-20",
     arquivos: {
       capa: "resumos/diarreia/capa.jpg",
       caderno: { href: "resumos/diarreia/caderno.pdf", paginas: 14 },
