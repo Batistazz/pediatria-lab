@@ -57,7 +57,17 @@ window.TEMAS = [
   },
   { id: "pcr", titulo: "Parada Cardiorrespiratória", sub: "Suporte básico e avançado de vida pediátrico" },
   { id: "atb", titulo: "Antibioticoterapia", sub: "Escolhas empíricas e doses nas infecções comuns" },
-  { id: "ictericia", titulo: "Icterícia Neonatal", sub: "Hiperbilirrubinemia indireta e colestase" },
+  {
+    id: "ictericia", titulo: "Icterícia Neonatal", sub: "Da bilirrubina indireta à colestase: fototerapia, exsanguineotransfusão e atresia biliar",
+    fontes: "SBP, manual de hiperbilirrubinemia indireta (2021) · NASPGHAN/ESPGHAN colestase (2017)",
+    atualizado: "2026-10-19",
+    arquivos: {
+      capa: "resumos/ictericia/capa.jpg",
+      caderno: { href: "resumos/ictericia/caderno.pdf", paginas: 14 },
+      flash: { href: "resumos/ictericia/flash.pdf", paginas: 2 },
+      cartao: { href: "resumos/ictericia/cartao.pdf", paginas: 1 },
+    },
+  },
   { id: "reanimacao-neo", titulo: "Reanimação Neonatal", sub: "Sala de parto: ≥34 e <34 semanas" },
   {
     id: "diarreia", titulo: "Diarreia Aguda e Desidratação", sub: "Planos A, B e C; disenteria, zinco e ondansetrona",
